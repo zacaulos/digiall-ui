@@ -1,0 +1,34 @@
+{
+  "projectId": "a6982373-2390-4e39-9fa1-95ebfa815a12",
+  "shape": "package",
+  "pkg": "@digiall/ui",
+  "globalName": "DigiallUI",
+  "buildCmd": "npm run build",
+  "srcDir": "src",
+  "tsconfig": "tsconfig.json",
+  "cssEntry": "dist/digiall-ui.css",
+  "extraFonts": [
+    "src/styles/fonts.css"
+  ],
+  "overrides": {
+    "Table": {
+      "cardMode": "column"
+    },
+    "Logo": {
+      "cardMode": "column"
+    },
+    "Card": {
+      "cardMode": "column"
+    },
+    "SectionHeader": {
+      "cardMode": "column"
+    },
+    "Badge": {
+      "cardMode": "column"
+    },
+    "Input": {
+      "cardMode": "column"
+    }
+  },
+  "readmeHeader": ".design-sync/conventions.md"
+}

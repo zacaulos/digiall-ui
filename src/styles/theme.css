@@ -1,0 +1,109 @@
+@import "tailwindcss";
+
+@source "../**/*.tsx";
+
+/* ------------------------------------------------------------------
+   Shipped utility surface.
+
+   Rendered designs receive only this stylesheet's @import closure, so any
+   class a design uses must already be compiled here. Scanning src/ alone
+   ships what our own components happen to use and nothing else — layout
+   utilities then silently no-op in designs built with the system. The two
+   @source lines below cover the real usage in this repo; the inline
+   safelist covers the layout, spacing and type primitives any design needs.
+   ------------------------------------------------------------------ */
+@source "../**/*.tsx";
+@source "../../.design-sync/previews/**/*.tsx";
+
+/* Brand palette across every colour utility, plus alpha steps and interactive states. */
+@source inline("{bg,text,border,ring,outline,fill,stroke,divide,decoration,caret,shadow}-{plum,plum-950,plum-200,plum-100,ink,muted,line,line-strong,surface,accent,accent-bright,warn,danger,white,black,transparent,current}");
+@source inline("{hover:,focus:,focus-visible:,active:,disabled:,group-hover:,}{bg,text,border}-{plum,plum-950,plum-200,plum-100,ink,muted,line,line-strong,surface,accent,accent-bright,warn,danger,white,black,transparent,current}");
+@source inline("{bg,text,border,ring}-{plum,accent,warn,danger,ink,black,white}/{5,10,15,20,25,30,40,50,55,60,70,75,80,90}");
+@source inline("font-{display,sans,mono}");
+/* Archivo's width axis is the system's signature — expose the usable stops as
+   utilities so designs can reach them (the compiled sheet has no arbitrary values). */
+@source inline("[font-stretch:{62%,74%,87%,100%,112%,125%}]");
+
+/* Box model and spacing. */
+@source inline("{p,px,py,pt,pr,pb,pl,m,mx,my,mt,mr,mb,ml,gap,gap-x,gap-y,space-x,space-y}-{0,0.5,1,1.5,2,2.5,3,3.5,4,5,6,7,8,9,10,11,12,14,16,20,24,32}");
+@source inline("{m,mx,my,mt,mb}-auto");
+@source inline("{w,h,size,min-w,min-h}-{0,0.5,1,1.5,2,2.5,3,3.5,4,5,6,7,8,9,10,11,12,14,16,20,24,32}");
+@source inline("{w,h,min-w,min-h,max-w,max-h}-{full,fit,min,max,screen,auto,none,px,0}");
+@source inline("w-{1/2,1/3,2/3,1/4,3/4,1/5,2/5,3/5,4/5}");
+@source inline("max-w-{3xs,2xs,xs,sm,md,lg,xl,2xl,3xl,4xl,5xl,6xl,7xl,prose}");
+
+/* Layout. */
+@source inline("{sm:,md:,lg:,xl:,}{flex,inline-flex,grid,inline-grid,block,inline-block,inline,hidden,contents,table,table-cell}");
+@source inline("{sm:,md:,lg:,}flex-{row,row-reverse,col,col-reverse,wrap,wrap-reverse,nowrap,1,auto,initial,none}");
+@source inline("{items,self}-{start,center,end,baseline,stretch,auto}");
+@source inline("{justify,content}-{start,center,end,between,around,evenly,stretch}");
+@source inline("{sm:,md:,lg:,}grid-cols-{1,2,3,4,5,6,7,8,9,10,11,12}");
+@source inline("{col,row}-span-{1,2,3,4,5,6,7,8,9,10,11,12,full}");
+@source inline("grid-rows-{1,2,3,4,5,6}");
+@source inline("{shrink,grow}-0");
+@source inline("{shrink,grow}");
+@source inline("{relative,absolute,fixed,sticky,static,isolate}");
+@source inline("{inset,inset-x,inset-y,top,right,bottom,left}-{0,auto,px,1,2,3,4}");
+@source inline("z-{0,10,20,30,40,50,auto}");
+@source inline("overflow-{x-,y-,}{auto,hidden,visible,scroll,clip}");
+
+/* Type. */
+@source inline("text-{xs,sm,base,lg,xl,2xl,3xl,4xl,5xl,6xl,7xl}");
+@source inline("text-{left,center,right,justify,start,end}");
+@source inline("font-{thin,extralight,light,normal,medium,semibold,bold,extrabold,black}");
+@source inline("{leading,tracking}-{none,tight,tighter,snug,normal,relaxed,loose,wide,wider,widest}");
+@source inline("{uppercase,lowercase,capitalize,normal-case,truncate,italic,not-italic}");
+@source inline("{underline,no-underline,line-through,whitespace-nowrap,whitespace-pre-line,break-words,text-balance,text-pretty,tabular-nums}");
+@source inline("list-{none,disc,decimal,inside,outside}");
+@source inline("line-clamp-{1,2,3,4,5,6,none}");
+
+/* Surface. */
+@source inline("rounded-{none,xs,sm,md,lg,xl,2xl,3xl,full}");
+@source inline("rounded-{t,r,b,l,tl,tr,br,bl}-{none,sm,md,lg,xl,2xl,3xl,full}");
+@source inline("border-{0,2,4,8}");
+@source inline("border-{t,r,b,l,x,y}-{0,2,4,8}");
+@source inline("border-{solid,dashed,dotted,none}");
+@source inline("shadow-{xs,sm,md,lg,xl,2xl,none}");
+@source inline("opacity-{0,5,10,20,25,30,40,50,60,70,75,80,90,95,100}");
+@source inline("object-{cover,contain,center,top,bottom,left,right}");
+@source inline("aspect-{square,video,auto}");
+@source inline("cursor-{pointer,default,not-allowed,wait,text,move}");
+@source inline("transition-{colors,opacity,transform,all,none}");
+@source inline("duration-{75,100,150,200,300,500,700,1000}");
+@source inline("ease-{linear,in,out,in-out}");
+@source inline("{ring,ring-offset}-{0,1,2,4,8}");
+@source inline("{sr-only,not-sr-only,pointer-events-none,pointer-events-auto,select-none,transition}");
+
+@theme {
+  /* ---- Brand -------------------------------------------------------- */
+  --color-plum: #624159;
+  --color-plum-950: #20121c;
+  --color-plum-200: #ecd2e4;
+  --color-plum-100: #f7e8f2;
+
+  /* ---- Neutrals ----------------------------------------------------- */
+  --color-ink: #272426;
+  --color-muted: #726f71;
+  --color-line-strong: #d6d3d5;
+  --color-line: #e8e5e7;
+  --color-surface: #f5f2f4;
+
+  /* ---- Accent and status -------------------------------------------- */
+  --color-accent: #006b68;
+  --color-accent-bright: #48c7c3;
+  --color-warn: #9a6b12;
+  --color-danger: #a33a18;
+
+  /* ---- Type --------------------------------------------------------- */
+  --font-display: Archivo, "Helvetica Neue", Arial, sans-serif;
+  --font-sans: Archivo, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+/* Page defaults. Rendered designs inherit these, so a bare <body> is already on-brand. */
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+  }
+}

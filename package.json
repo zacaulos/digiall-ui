@@ -1,0 +1,40 @@
+{
+  "name": "@digiall/ui",
+  "version": "1.0.0",
+  "private": true,
+  "description": "DIGIALL design system — brand marks, tokens and UI components.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./styles.css": "./dist/digiall-ui.css"
+  },
+  "files": ["dist"],
+  "sideEffects": ["*.css"],
+  "scripts": {
+    "build:marks": "node scripts/gen-marks.mjs",
+    "build:js": "tsup",
+    "build:css": "tailwindcss -i src/styles/theme.css -o dist/digiall-ui.css",
+    "build": "npm run build:marks && npm run build:js && npm run build:css",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.1.14",
+    "@types/react": "^19.1.12",
+    "@types/react-dom": "^19.1.9",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "tailwindcss": "^4.1.14",
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.2"
+  }
+}
