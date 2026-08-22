@@ -12,16 +12,23 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
-    "./styles.css": "./dist/digiall-ui.css"
+    "./styles.css": "./dist/digiall-ui.css",
+    "./fonts.css": "./dist/fonts.css"
   },
-  "files": ["dist"],
-  "sideEffects": ["*.css"],
+  "files": [
+    "dist"
+  ],
+  "sideEffects": [
+    "*.css"
+  ],
   "scripts": {
     "build:marks": "node scripts/gen-marks.mjs",
     "build:js": "tsup",
     "build:css": "tailwindcss -i src/styles/theme.css -o dist/digiall-ui.css",
-    "build": "npm run build:marks && npm run build:js && npm run build:css",
-    "typecheck": "tsc --noEmit"
+    "build": "npm run build:marks && npm run build:js && npm run build:css && npm run build:fonts",
+    "typecheck": "tsc --noEmit",
+    "build:fonts": "node scripts/copy-fonts.mjs",
+    "prepare": "npm run build"
   },
   "peerDependencies": {
     "react": ">=18",
