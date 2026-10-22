@@ -54,7 +54,9 @@ export function Button({
       className={cx(
         'inline-flex items-center justify-center rounded-lg font-display font-semibold',
         '[font-stretch:112%] tracking-[-0.01em] whitespace-nowrap',
-        'transition-colors duration-150',
+        // Al presionar se encoge apenas: confirma que el botón escuchó. Sin movimiento si el usuario lo pidió.
+        '[transition-property:color,background-color,border-color,transform] duration-150 ease-[cubic-bezier(0.23,1,0.32,1)]',
+        'active:scale-[0.97] motion-reduce:active:scale-100',
         'focus-visible:outline-2 focus-visible:outline-offset-2',
         'disabled:opacity-40 disabled:pointer-events-none',
         VARIANTS[variant],
