@@ -4,6 +4,8 @@ import { MARKS, type Mark } from './marks'
 const PLUM = '#624159'
 const WHITE = '#FFFFFF'
 const BLACK = '#000000'
+/** accent-bright: the dot on the D. One-ink reproduction (`black`) draws it in the ink instead. */
+const TEAL = '#48C7C3'
 
 export type LogoVariant = 'stacked' | 'horizontal' | 'wordmark' | 'monogram'
 export type LogoTone = 'plum' | 'inverse' | 'black'
@@ -58,6 +60,9 @@ export function Logo({
 }: LogoProps) {
   const mark = markFor(variant, withRule)
   const ink = inkFor(tone)
+  const dotFill = tone === 'black' ? BLACK : TEAL
+  const maskId = `digiall-punto-${React.useId().replace(/:/g, '')}`
+  const { dot } = mark
   const resolvedWidth = width ?? MIN_WIDTH_PX[variant] * 2
 
   if (variant === 'monogram') {
@@ -79,6 +84,8 @@ export function Logo({
         {mark.paths.map((p, i) => (
           <path key={i} d={p.d} transform={p.transform ?? undefined} fill={glyph} />
         ))}
+        <circle cx={dot.cx} cy={dot.cy} r={Number(dot.r) + Number(dot.gap)} fill={background} />
+        <circle cx={dot.cx} cy={dot.cy} r={dot.r} fill={dotFill} />
       </svg>
     )
   }
@@ -94,14 +101,28 @@ export function Logo({
       {...rest}
     >
       {title ? <title>{title}</title> : null}
+      {/* The ring around the dot is cut out of the D, so it works on any background */}
+      <defs>
+        <mask id={maskId} maskUnits="userSpaceOnUse" x="-10" y="-10" width="700" height="160">
+          <rect x="-10" y="-10" width="700" height="160" fill="#fff" />
+          <circle cx={dot.cx} cy={dot.cy} r={Number(dot.r) + Number(dot.gap)} fill="#000" />
+        </mask>
+      </defs>
       <g fill={ink}>
-        {mark.paths.map((p, i) => (
-          <path key={i} d={p.d} transform={p.transform ?? undefined} />
-        ))}
+        {mark.paths.map((p, i) =>
+          i === 0 ? (
+            <g key={i} mask={`url(#${maskId})`}>
+              <path d={p.d} transform={p.transform ?? undefined} />
+            </g>
+          ) : (
+            <path key={i} d={p.d} transform={p.transform ?? undefined} />
+          ),
+        )}
         {mark.rects?.map((r, i) => (
           <rect key={i} x={r.x} y={r.y} width={r.width} height={r.height} opacity={r.opacity} />
         ))}
       </g>
+      <circle cx={dot.cx} cy={dot.cy} r={dot.r} fill={dotFill} />
     </svg>
   )
 }
